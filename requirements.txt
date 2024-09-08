@@ -1,0 +1,7 @@
+numpy
+scikit-learn
+flask
+SQLAlchemy
+spotipy
+#local packages
+-e .
