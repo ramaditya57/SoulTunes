@@ -1,4 +1,4 @@
-### Project Title: **Soultunes - Emotion-Based Music Recommendation System**
+### Project Title: **SoulTunes - Emotion-Based Music Recommendation System**
 
 ### Project Overview:
 Developed a real-time emotion-based music recommendation system using **CNNs** and **OpenCV** for facial emotion detection, providing personalized music playlists.
