@@ -1,0 +1,371 @@
+body {
+  font-family: 'Lora', serif;
+  font-family: 'Manrope', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  width: 100%;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  top: 0;
+  position: sticky;
+}
+
+.header__top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 80px;
+  background-color: #333333;
+}
+
+.header__top__container {
+  display: flex;
+  flex-direction: row;
+  max-width: 1240px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px;
+  position: relative;
+}
+
+.header__item--current-link a::after {
+  content: "";
+  width: 100%;
+  height: 4px;
+  background-color: #b2100d;
+  display: block;
+  position: absolute;
+  bottom: -29px;
+}
+
+.header__item--link a:hover {
+  color: #ffffff;
+}
+
+.header__item--current-link a {
+  font-weight: 500;
+  position: relative;
+  color: #111
+}
+
+.header__item--link a {
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.header__column--left {
+  justify-content: flex-start;
+  flex-grow: 1;
+  flex-basis: 50%;
+  flex-shrink: 0;
+}
+
+.header__column {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.header__column--left .header__item {
+  padding-right: 40px;
+}
+
+.header__item {
+  display: flex;
+}
+
+.header__column--right {
+  justify-content: flex-end;
+  flex-grow: 1;
+  flex-basis: 50%;
+  flex-shrink: 0;
+}
+
+.header__column--right .header__item {
+  padding-left: 50px;
+}
+
+.header__item {
+  display: flex;
+}
+
+.header__item__logo {
+  height: 100%;
+  justify-self: center;
+}
+
+.logo {
+  height: 70px;
+  width: 100%;
+}
+
+.viewport__main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pages__home__hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 450px;
+  background-color: #F0F1F4;
+  text-align: center;
+}
+
+.pages__home__hero::before {
+  content: "";
+  position: absolute;
+  background-image: url("assets/image.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  top: 75px;
+  height: 455px;
+  width: 100%;
+  opacity: .4;
+  z-index: 1;
+}
+
+.pages__home__hero__title {
+  color: black;
+  font-size: 80px;
+  font-weight: 600;
+  display: block;
+  margin: auto;
+}
+
+.pages__home__hero__byline {
+  color: #4e4e4e;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 800px;
+}
+
+.pages__home__genres {
+  padding: 60px 15px;
+  background-color: #FDCC8A;
+  height: 550px;
+}
+
+.pages__home__form {
+  padding: 60px 15px;
+  background-color: #FDCC8A;
+  height: 800px;
+  text-align: center;
+}
+
+.pages__home__form__inside {
+  width: 70%;
+  margin: auto;
+}
+
+.pages__home__genres__container {
+  width: 100%;
+}
+
+.pages__home__genres__title {
+  color: #111;
+  font-size: 56px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0;
+}
+
+.pages__home__genres__tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.pages__home__genres__tile {
+  color: #4e4e4e;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  width: calc(25% - 60px);
+  height: 60px;
+  margin: 10px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+.pages__home__genres__tile:hover {
+  border-color: #b2100d;
+  color: #b2100d;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  color: #999999;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 15px 20px 15px;
+}
+
+.footer__row {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.recontainer1 {
+  display: flex;
+  /* Use a flex container */
+  justify-content: space-between;
+  /* Space items evenly along the main axis (horizontally) */
+  align-items: center;
+  /* Center items along the cross-axis (vertically) */
+}
+
+.recontainer1 img {
+  max-width: 100px;
+  /* Set a maximum width for the images to control their size */
+  height: auto;
+  /* Maintain the aspect ratio of the images */
+  margin: 5px;
+  /* Add some spacing between the images */
+}
+
+.video-container {
+  width: 60px;
+  /* Adjust width as needed */
+  height: 40px;
+  /* Adjust height as needed */
+  overflow: hidden;
+  position: relative;
+}
+
+.video-feed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 40%;
+  border: 2px solid black;
+}
+
+.video-button {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.video-button {
+  margin-top: 25px;
+}
+
+.detect-emotion button {
+  background-color: #4CAF50;
+  /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.detect-emotion button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.detect-emotion button:hover::before {
+  left: 0;
+}
+
+.detect-emotion button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  perspective: 1000px;
+}
+
+.detect-emotion button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.recommded-songs button {
+  background-color: #4CAF50;
+  /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.recommded-songs button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.recommded-songs button:hover::before {
+  left: 0;
+}
+
+.recommded-songs button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  perspective: 1000px;
+}
+
+.recommded-songs button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}

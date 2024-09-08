@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/home.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500;1,700&family=Manrope:wght@500&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header" id="header">
+    <div class="header__top">
+      <div class="header__top__container">
+        <div class="header__column header__column--left">
+          <div class="header__item header__item--link header__item--current-link ">
+            <a class="header__item__link" href="{{ url_for('home') }}">Home</a>
+          </div>
+          <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="{{ url_for('team') }}">Our Team</a>
+          </div>
+          <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="{{ url_for('form') }}">Feedback Form</a>
+          </div>
+        </div>
+
+        <div class="header__column header__column--right">
+          <div class="header__item">
+            <a class="header__item__logo" href="#"><img src="{{ url_for('static',filename='styles/assets/logo.png') }}"
+                class="logo"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="viewport__main">
+    <!-- Yield -->
+    <div id="pages__home">
+
+      <div class="pages__home__hero">
+        <!-- Title -->
+        <h1 class="pages__home__hero__title"><u>Harmonize Your Souls!</u></h1>
+
+      </div>
+
+      <div class="pages__home__form">
+        <h1 style="padding-bottom: 5px;  font-size: 40px;">Emotion Detection</h1>
+        <div id="video-container">
+          <img id="video-feed" style="border: 2px solid black;" src="{{ url_for('video_feed') }}" alt="Webcam Feed">
+        </div>
+        <div class="video-button">
+          <div class="detect-emotion">
+            <button onclick="fetchEmotion()">Detect Emotion</button>
+          </div>
+          <div class="recommded-songs">
+            <a href="{{ url_for('songs') }}"><button>Recommend Songs</button></a>
+          </div>
+        </div>
+        <p id="emotionLabel"></p>
+
+      </div>
+
+      <!-- Footer -->
+      <div id="footer" class="footer">
+        <br>
+        <!-- Copyright -->
+        <div class="footer__row">
+
+          &copy; Made with &#10084; by Team 25 VIT Bhopal.
+        </div>
+      </div>
+
+      <script>
+        function fetchEmotion() {
+          fetch('/get_emotion')  // Replace with your Flask endpoint
+              .then(response => response.text())
+              .then(emotion => {
+                  document.getElementById('emotionLabel').innerText = 'Detected emotion: ' + emotion;
+              })
+              .catch(error => {
+                  console.error('Fetch error:', error);
+              });
+      }
+      </script>
+
+</body>
+
+</html>

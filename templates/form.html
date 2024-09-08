@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" media="all" href="{{ url_for('static',filename='styles/common.css') }}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+    /* CSS for styling the form */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #FDCC8A;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      margin: 15px 0px;
+      font-size: 60px;
+      font-family: "Chakra Petch", sans-serif;
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    form {
+      background-color: #f2f2f2;
+      /* Light gray background */
+      border: 1px solid #ccc;
+      /* Gray border */
+      border-radius: 10px;
+      /* Rounded corners */
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      float: left;
+      width: 45%;
+      /* Adjust the width as needed */
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      float: left;
+      width: 50%;
+      /* Adjust the width as needed */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .submit-btn button {
+      background-color: #4CAF50;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .submit-btn button:hover::before {
+      left: 0;
+    }
+
+    .submit-btn button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      perspective: 1000px;
+    }
+
+    .submit-btn button:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      border: 2px solid black; /* thicker border */
+      padding: 12px; /* increased padding */
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f2f2f2; /* Light gray background for headers */
+    }
+    
+    
+    th {
+      background-color: #f2f2f2; /* Light gray background for headers */
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2; /* Alternate row background color */
+    }
+    
+    tr:hover {
+      background-color: #ddd; /* Hover color for rows */
+    }
+    
+
+    .stars {
+      font-size: 40px;
+      color: #ccc;
+    }
+
+    .star {
+      cursor: pointer;
+    }
+
+    .star:hover,
+    .star.active {
+      color: gold;
+    }
+
+    select {
+      height: 40px;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    input[type="submit"] {
+      background: #333;
+      color: #fff;
+      border: 0;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header" id="header">
+    <div class="header__top">
+      <div class="header__top__container">
+        <div class="header__column header__column--left">
+          <div class="header__item header__item--link">
+            <a class="header__item__link" href="{{ url_for('home') }}">Home</a>
+          </div>
+          <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="{{ url_for('team') }}">Our Team</a>
+          </div>
+          <div class="header__item header__item--link header__item--current-link">
+            <a class="header__item__link" href="#">Feedback Form</a>
+          </div>
+        </div>
+
+        <div class="header__column header__column--right">
+          <div class="header__item">
+            <a class="header__item__logo" href="#"><img src="{{ url_for('static',filename='styles/assets/logo.png') }}"
+                class="logo"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <center>
+      <h2>Feedback Form</h2>
+    </center>
+    <form action="/form" method="post">
+      <div class="form-group">
+        <label for="EmotionDetected">Emotion Detected</label>
+        <select id="EmotionDetected" name="EmotionDetected">
+          <option value="Angry">Angry</option>
+          <option value="Disgust">Disgust</option>
+          <option value="Fear">Fear</option>
+          <option value="Happy">Happy</option>
+          <option value="Neutral">Neutral</option>
+          <option value="Sad">Sad</option>
+          <option value="Surprise">Surprise</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="SongRecommended">Song Recommended</label>
+        <input type="text" id="SongRecommended" name="SongRecommended">
+      </div>
+      <div class="form-group">
+        <label for="SongRating">Song Rating</label>
+        <!-- Add the stars container here -->
+        <div class="stars" id="stars">
+          <span class="star" data-value="1">&#9733;</span>
+          <span class="star" data-value="2">&#9733;</span>
+          <span class="star" data-value="3">&#9733;</span>
+          <span class="star" data-value="4">&#9733;</span>
+          <span class="star" data-value="5">&#9733;</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="websiteReview">Website Review</label>
+        <select id="websiteReview" name="websiteReview">
+          <option value="Excellent">Excellent</option>
+          <option value="Good">Good</option>
+          <option value="Average">Average</option>
+          <option value="Poor">Poor</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+
+      <div class="submit-btn">
+        <button type="submit">SUBMIT</button>
+      </div>
+
+      <center>
+        <table id="customers">
+          <thead>
+            <tr>
+              <th scope="col">S.No.</th>
+              <th scope="col">Song</th>
+              <th scope="col">Emotion Detected</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for Iot in alldata %}
+            <tr>
+              <td>{{loop.index}}</td>
+              <td>{{Iot.SongRecommended}}</td>
+              <td>{{Iot.EmotionDetected}}</td>
+              <td>{{Iot.email}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <p id="result"></p>
+      </center>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer" class="footer">
+    <br>
+    <!-- Copyright -->
+    <div class="footer__row">
+
+      &copy; Made with &#10084; by Team 25 VIT Bhopal.
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const result = document.getElementById('result');
+
+        stars.forEach((star) => {
+            star.addEventListener('click', () => {
+                const value = parseInt(star.getAttribute('data-value'));
+                result.textContent = `You rated ${value} stars.`;
+                removeActiveStars();
+                addActiveStars(value);
+            });
+        });
+
+        function removeActiveStars() {
+            stars.forEach((star) => {
+                star.classList.remove('active');
+            });
+        }
+
+        function addActiveStars(value) {
+            for (let i = 0; i < value; i++) {
+                stars[i].classList.add('active');
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

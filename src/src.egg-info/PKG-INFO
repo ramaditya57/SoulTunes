@@ -1,0 +1,5 @@
+Metadata-Version: 2.1
+Name: src
+Version: 0.0.0
+Summary: A small package for Movie Recommender System
+Requires-Python: >=3.7

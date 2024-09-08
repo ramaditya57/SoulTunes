@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Songs</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/songs.css') }}">
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = new Audio(); // Create audio element globally
+        
+            fetch('read_csv')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#songsTable tbody');
+                data.forEach(row => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${row.Name}</td>
+                        <td>${row.Album}</td>
+                        <td>${row.Artist}</td>
+                        <td><button class="playPauseButton center-align" data-src="${row.Link}" data-state="play"></button></td>
+                        <td><img src="${row.Image}" alt="${row.Name}" width="100"></td>
+                    `;
+                    tableBody.appendChild(newRow);
+                });
+        
+                const playPauseButtons = document.querySelectorAll('.playPauseButton');
+                playPauseButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const audioSrc = this.getAttribute('data-src');
+                        const state = this.getAttribute('data-state');
+                        playPause(audioSrc, state, this);
+                    });
+                });
+        
+                function playPause(audioSrc, state, button) {
+                    if (state === 'play') {
+                        audio.src = audioSrc;
+                        audio.play();
+                        button.classList.add('pauseIcon');
+                        button.setAttribute('data-state', 'pause');
+                    } else {
+                        audio.pause();
+                        button.classList.remove('pauseIcon');
+                        button.setAttribute('data-state', 'play');
+                    }
+                }
+            });
+        });
+        window.onload= function fetchEmotion() {
+          fetch('/get_emotion')  // Replace with your Flask endpoint
+              .then(response => response.text())
+              .then(emotion => {
+                  document.getElementById('emotionLabel').innerText = emotion + " Playlist";
+              })
+              .catch(error => {
+                  console.error('Fetch error:', error);
+              });
+      }
+        
+    </script>
+</head>
+<body>
+      <!-- Header -->
+  <div class="header" id="header">
+    <div class="header__top">
+      <div class="header__top__container">
+        <div class="header__column header__column--left">
+          <div class="header__item header__item--link ">
+            <a class="header__item__link" href="{{ url_for('home') }}">Home</a>
+          </div>
+          <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="{{ url_for('team') }}">Our Team</a>
+          </div>
+          <div class="header__item header__item--link  ">
+            <a class="header__item__link" href="{{ url_for('form') }}">Feedback Form</a>
+          </div>
+          <div class="header__item header__item--link header__item--current-link ">
+            <a class="header__item__link" href="#">Playlist</a>
+          </div>
+        </div>
+
+        <div class="header__column header__column--right">
+          <div class="header__item">
+            <a class="header__item__logo" href="#"><img src="{{ url_for('static',filename='styles/assets/logo.png') }}"
+                class="logo"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <h1 id="emotionLabel" style="text-transform: capitalize;"></h1>
+    <table id="songsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Album</th>
+                <th>Artist</th>
+                <th>Play/Pause</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be inserted here dynamically -->
+        </tbody>
+    </table>
+      <!-- Footer -->
+      <div id="footer" class="footer">
+        <br>
+        <!-- Copyright -->
+        <div class="footer__row">
+
+          &copy; Made with &#10084; by Team 25 VIT Bhopal.
+        </div>
+      </div>
+</body>
+</html>

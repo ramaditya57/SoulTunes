@@ -1,0 +1,291 @@
+html, body {
+    font-family: 'Lora', serif;
+    font-family: 'Manrope', sans-serif;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-color: #FDCC8A;
+    margin-top: 50px;
+}
+:root {
+    view-transition-name: root;
+}
+html {
+    display: block;
+}
+.header {
+    font-family: Barlow, Helvetica, Arial, sans-serif;
+    width: 100%;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.header__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 80px;
+    background-color: #333333;
+}
+.header__top__container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1240px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+    position: relative;
+}
+.header__item--current-link a:after {
+    content: "";
+    width: 100%;
+    height: 4px;
+    background-color: #b2100d;
+    display: block;
+    position: absolute;
+    bottom: -29px;
+}
+
+.header__item--current-link a {
+    font-weight: 500;
+    position: relative;
+    color: #111;
+}
+.header__item--link a {
+    font-size: 18px;
+    line-height: 22px;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+.header__column {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+.header__column--left {
+    justify-content: flex-start;
+    flex-grow: 1;
+    flex-basis: 50%;
+    flex-shrink: 0;
+}
+.header__column--left .header__item {
+    padding-right: 40px;
+}
+.header__column--right {
+    justify-content: flex-end;
+    flex-grow: 1;
+    flex-basis: 50%;
+    flex-shrink: 0;
+  }
+  .header__column--right .header__item {
+    padding-left: 50px;
+  }
+  .logo{
+    height: 70px;
+    width: 100%;
+  }
+.book-category {
+    font-family: Barlow, Helvetica, Arial, sans-serif;
+    width: 100%;
+}
+.book-category__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.book-category__container {
+    flex-shrink: 0;
+    max-width: 1000px;
+    width: 100%;
+}
+.book-category__main__header {
+    margin: 45px 0px 25px;
+    text-align: center;
+}
+.book-category__main__title {
+    color: #111;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 43px;
+    margin: 0 0 12px 0;
+}
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.book-category__main__subtitle {
+    color: #4e4e4e;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto 5px auto;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.book-category__books {
+    background-color: #DEDBD2;
+    border: 1px solid #E9E9E9;
+    border-radius: 4px;
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.05);
+    padding: 25px;
+}
+.book-results__item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+.book-results__actions a {
+    display: block;
+    text-align: center;
+}
+.book-results__buy {
+    -webkit-appearance: none;
+    border-radius: 4px;
+    font-family: Barlow, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+    text-decoration: none;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    color: #fff !important;
+    box-shadow: 0px 2px 5px 1px #b2100d;
+    background-color: #b2100d;
+    font-weight: 600;
+    padding: 0px 30px;
+    border: 0;
+    margin-bottom: 8px;
+}
+.book-results__left {
+    display: flex;
+    flex-grow: 1;
+}
+.book-results__cover {
+    margin-right: 20px;
+}
+.book-results__cover__inner {
+    width: 60px;
+    min-height: 90px;
+    background-color: #ece8e8;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+.book-results__cover__inner:before {
+    content: "\f518";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+.book-results__details {
+    flex-grow: 1;
+    margin-right: 20px;
+}
+.book-results__title {
+    margin: 0 0 8px 0;
+}
+.book-results__title a {
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0px;
+}
+.book-results__author {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 0 12px 0;
+}
+.book-results__author a {
+    color: #4E4E4E;
+    text-decoration: none;
+}
+h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.book-results__actions {
+    width: 140px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.book-category__search-again {
+    margin: 40px 0 60px 0;
+    text-align: center;
+}
+.book-category__search-again__button {
+    -webkit-appearance: none;
+    border-radius: 4px;
+    font-family: Barlow, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+    text-decoration: none;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    color: #fff !important;
+    box-shadow: 0px 2px 5px 1px #b2100d;
+    background-color: #b2100d;
+    font-weight: 600;
+    padding: 0px 30px;
+    border: 0;
+}
+.book-category__search-again {
+    margin: 40px 0 60px 0;
+    text-align: center;
+}
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    color: #999999;
+    font-size: 14px;
+    font-family: Barlow, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    padding: 0 15px 20px 15px;
+    margin-top: 25px;
+}
+.footer__row {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

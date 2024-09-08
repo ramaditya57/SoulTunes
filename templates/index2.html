@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login/SignUp</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/login.css') }}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<div class="company">
+			<img class="logo-im" src="{{ url_for('static', filename='styles/assets/logo.png') }}" alt="LOGO">
+			<h1 class="heading"><span class="top">Welcome!</span> to TuneSouls</h1>
+		</div>
+		<h3 class="title">Login & Registration Form</h3>
+	</header>
+
+	<!-- container div -->
+	<div class="container">
+
+		<!-- upper button section to select
+			the login or signup form -->
+		<div class="slider"></div>
+		<div class="btn">
+			<button class="login">Login</button>
+			<button class="signup">Signup</button>
+		</div>
+
+		<!-- Form section that contains the
+			login and the signup form -->
+		<div class="form-section">
+
+			<!-- login form -->
+			<form method="post" action="/login">
+			<div class="login-box">
+				<input type="email" id="fullname" name="fullname"
+					class="email ele"
+					placeholder="Enter your e-mail id">
+				<input type="password" id="password" name="password"
+					class="password ele"
+					placeholder="Password">
+				<button class="clkbtn" type="submit">Login</button>
+			</form>
+			</div>
+
+			<!-- signup form -->
+			<form action="/" method="post">
+			<div class="signup-box">
+				<input type="text"
+					class="name ele"
+					
+					placeholder="Enter your name">
+				<input type="email"
+					class="email ele" id="fullname" name="fullname"
+					placeholder="Enter your e-mail id">
+				<input type="password"
+					class="password ele"
+					placeholder="Password">
+				<input type="password"
+					class="password ele" id="password" name="password"
+					placeholder="Confirm password">
+				<button class="clkbtn">Signup</button>
+			</div>
+			</form>
+		</div>
+	</div>
+	<!-- <script>
+		function auth() {
+        var emaile = document.getElementById("emaile").value;
+        var passworde
+		 = document.getElementById("passworde").value;
+    
+        if (emaile === "admin@tunesouls.com" && passworde === "user123") {
+            window.location.replace("{{ url_for('home') }}");
+            // alert("You Are a ADMIN");
+        }
+        else if(emaile === "vitbhopal@tunesouls.com" && passworde === "vitb2022") {
+            window.location.replace("{{ url_for('home') }}");
+            // alert("You Are a ADMIN");
+        }
+        else if(emaile === "jay@tunesouls.com" && passworde === "Jay123") {
+            window.location.replace("{{ url_for('home') }}");
+            // alert("You Are a ADMIN");
+        }
+		else {
+            alert("Invalid information");
+            return;
+        }
+	}
+    
+	</script> -->
+	<script>
+		let signup = document.querySelector(".signup");
+let login = document.querySelector(".login");
+let slider = document.querySelector(".slider");
+let formSection = document.querySelector(".form-section");
+
+signup.addEventListener("click", () => {
+	slider.classList.add("moveslider");
+	formSection.classList.add("form-section-move");
+});
+
+login.addEventListener("click", () => {
+	slider.classList.remove("moveslider");
+	formSection.classList.remove("form-section-move");
+});
+	</script>
+</body>
+</html>
