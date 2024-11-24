@@ -18,8 +18,3 @@ Developed a real-time emotion-based music recommendation system using **CNNs** a
 1. Gained expertise in **CNNs** and **OpenCV** for emotion detection and model training.
 2. Enhanced skills in building full-stack applications with a focus on user experience and emotion-based personalization.
 3. Overcame technical challenges in linking real-time emotion detection to a dynamic music recommendation system.
-
-### Future Enhancements:
-1. Expand music platform integration beyond **Spotify** for a broader range of music.
-2. Improve emotion detection by incorporating multi-modal data inputs such as voice and text for higher accuracy.
-3. Implement a real-time feedback mechanism to refine recommendations based on user preferences.
