@@ -5,114 +5,198 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emotion Songs</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/songs.css') }}">
-    <script defer>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const audio = new Audio(); // Create audio element globally
-        
-            fetch('read_csv')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.querySelector('#songsTable tbody');
-                data.forEach(row => {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <td>${row.Name}</td>
-                        <td>${row.Album}</td>
-                        <td>${row.Artist}</td>
-                        <td><button class="playPauseButton center-align" data-src="${row.Link}" data-state="play"></button></td>
-                        <td><img src="${row.Image}" alt="${row.Name}" width="100"></td>
-                    `;
-                    tableBody.appendChild(newRow);
-                });
-        
-                const playPauseButtons = document.querySelectorAll('.playPauseButton');
-                playPauseButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const audioSrc = this.getAttribute('data-src');
-                        const state = this.getAttribute('data-state');
-                        playPause(audioSrc, state, this);
-                    });
-                });
-        
-                function playPause(audioSrc, state, button) {
-                    if (state === 'play') {
-                        audio.src = audioSrc;
-                        audio.play();
-                        button.classList.add('pauseIcon');
-                        button.setAttribute('data-state', 'pause');
-                    } else {
-                        audio.pause();
-                        button.classList.remove('pauseIcon');
-                        button.setAttribute('data-state', 'play');
+            
+            // Function to load songs
+            function loadSongs() {
+                fetch('/read_csv')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
+                    return response.json();
+                })
+                .then(data => {
+                    const tableBody = document.querySelector('#songsTable tbody');
+                    // Clear existing songs
+                    tableBody.innerHTML = '';
+                    
+                    if (data.length === 0) {
+                        const noSongsRow = document.createElement('tr');
+                        noSongsRow.innerHTML = '<td colspan="5">No songs available for this emotion</td>';
+                        tableBody.appendChild(noSongsRow);
+                        return;
+                    }
+                    
+                    data.forEach(row => {
+                        const newRow = document.createElement('tr');
+                        newRow.innerHTML = `
+                            <td>${row.Name}</td>
+                            <td>${row.Album}</td>
+                            <td>${row.Artist}</td>
+                            <td><button class="playPauseButton center-align" data-src="${row.Link}" data-state="play"></button></td>
+                            <td><img src="${row.Image}" alt="${row.Name}" width="100" onerror="this.src='{{ url_for('static',filename='styles/assets/logo.png') }}'"></td>
+                        `;
+                        tableBody.appendChild(newRow);
+                    });
+            
+                    const playPauseButtons = document.querySelectorAll('.playPauseButton');
+                    playPauseButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            const audioSrc = this.getAttribute('data-src');
+                            const state = this.getAttribute('data-state');
+                            playPause(audioSrc, state, this);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching songs:', error);
+                    const tableBody = document.querySelector('#songsTable tbody');
+                    tableBody.innerHTML = '<tr><td colspan="5">Error loading songs. Please try again later.</td></tr>';
+                });
+            }
+            
+            // Function to play/pause audio
+            function playPause(audioSrc, state, button) {
+                // Reset all buttons to play state first
+                document.querySelectorAll('.playPauseButton').forEach(btn => {
+                    if (btn !== button) {
+                        btn.classList.remove('pauseIcon');
+                        btn.setAttribute('data-state', 'play');
+                    }
+                });
+                
+                if (state === 'play') {
+                    // If we're changing songs, stop the current one
+                    if (audio.src !== audioSrc && audio.src !== '') {
+                        audio.pause();
+                    }
+                    
+                    audio.src = audioSrc;
+                    audio.play().catch(e => {
+                        console.error("Error playing audio:", e);
+                        alert("Unable to play this track. It might be unavailable or requires a premium account.");
+                    });
+                    button.classList.add('pauseIcon');
+                    button.setAttribute('data-state', 'pause');
+                } else {
+                    audio.pause();
+                    button.classList.remove('pauseIcon');
+                    button.setAttribute('data-state', 'play');
                 }
+            }
+            
+            // Initial load
+            loadSongs();
+            
+            // Set up audio ended event
+            audio.addEventListener('ended', function() {
+                // Reset all buttons to play state when audio ends
+                document.querySelectorAll('.playPauseButton').forEach(btn => {
+                    btn.classList.remove('pauseIcon');
+                    btn.setAttribute('data-state', 'play');
+                });
             });
+            
+            // Refresh songs every 10 seconds if the emotion changes
+            setInterval(function() {
+                fetchEmotion();
+                loadSongs();
+            }, 10000);
         });
-        window.onload= function fetchEmotion() {
-          fetch('/get_emotion')  // Replace with your Flask endpoint
-              .then(response => response.text())
-              .then(emotion => {
-                  document.getElementById('emotionLabel').innerText = emotion + " Playlist";
-              })
-              .catch(error => {
-                  console.error('Fetch error:', error);
-              });
-      }
         
+        function fetchEmotion() {
+            fetch('/get_emotion')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(emotion => {
+                    if (emotion) {
+                        document.getElementById('emotionLabel').innerText = emotion.charAt(0).toUpperCase() + emotion.slice(1) + " Playlist";
+                    } else {
+                        document.getElementById('emotionLabel').innerText = "Neutral Playlist";
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    document.getElementById('emotionLabel').innerText = "Neutral Playlist";
+                });
+        }
+        
+        // Call fetchEmotion when page loads
+        window.onload = fetchEmotion;
     </script>
 </head>
 <body>
-      <!-- Header -->
-  <div class="header" id="header">
-    <div class="header__top">
-      <div class="header__top__container">
-        <div class="header__column header__column--left">
-          <div class="header__item header__item--link ">
-            <a class="header__item__link" href="{{ url_for('home') }}">Home</a>
-          </div>
-          <div class="header__item header__item--link  ">
-            <a class="header__item__link" href="{{ url_for('team') }}">Our Team</a>
-          </div>
-          <div class="header__item header__item--link  ">
-            <a class="header__item__link" href="{{ url_for('form') }}">Feedback Form</a>
-          </div>
-          <div class="header__item header__item--link header__item--current-link ">
-            <a class="header__item__link" href="#">Playlist</a>
-          </div>
-        </div>
+    <!-- Header -->
+    <div class="header" id="header">
+        <div class="header__top">
+            <div class="header__top__container">
+                <div class="header__column header__column--left">
+                    <div class="header__item header__item--link">
+                        <a class="header__item__link" href="{{ url_for('home') }}">Home</a>
+                    </div>
+                    <div class="header__item header__item--link">
+                        <a class="header__item__link" href="{{ url_for('team') }}">Our Team</a>
+                    </div>
+                    <div class="header__item header__item--link">
+                        <a class="header__item__link" href="{{ url_for('form') }}">Feedback Form</a>
+                    </div>
+                    <div class="header__item header__item--link header__item--current-link">
+                        <a class="header__item__link" href="#">Playlist</a>
+                    </div>
+                </div>
 
-        <div class="header__column header__column--right">
-          <div class="header__item">
-            <a class="header__item__logo" href="#"><img src="{{ url_for('static',filename='styles/assets/logo.png') }}"
-                class="logo"></a>
-          </div>
+                <div class="header__column header__column--right">
+                    <div class="header__item">
+                        <a class="header__item__logo" href="#">
+                            <img src="{{ url_for('static',filename='styles/assets/logo.png') }}" class="logo" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-    <h1 id="emotionLabel" style="text-transform: capitalize;"></h1>
-    <table id="songsTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Album</th>
-                <th>Artist</th>
-                <th>Play/Pause</th>
-                <th>Image</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Table rows will be inserted here dynamically -->
-        </tbody>
-    </table>
-      <!-- Footer -->
-      <div id="footer" class="footer">
+    
+    <!-- Main content -->
+    <div class="content-container">
+        <h1 id="emotionLabel" style="text-transform: capitalize;">Loading playlist...</h1>
+        
+        <div class="emotion-status">
+            <p>Note: Camera-based emotion detection is currently unavailable in cloud deployment. 
+               Using <span id="default-emotion">neutral</span> mood for song recommendations.</p>
+        </div>
+        
+        <table id="songsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Album</th>
+                    <th>Artist</th>
+                    <th>Play/Pause</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="5">Loading songs...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Footer -->
+    <div id="footer" class="footer">
         <br>
         <!-- Copyright -->
         <div class="footer__row">
-
-          &copy; Made with &#10084; by Team 25 VIT Bhopal.
+            &copy; Made with &#10084; by Team 25 VIT Bhopal.
         </div>
-      </div>
+    </div>
 </body>
 </html>
